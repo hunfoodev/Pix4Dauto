@@ -1,2 +1,6 @@
-# pix4dAuto
-Program to run pix4d projects automatically
+# Pix4dAuto
+
+## Description
+Program to create Pix4D projects automatically using a predefined template. 
+
+
