@@ -8,7 +8,7 @@ Program to create Pix4D projects automatically using a predefined template. Afte
 - Import folders of filtered images in 'raw' folder contained in base directory (see example folder)
 - Set base directory and template in settings.py
 - Run test.py to generate 'projectAuto.bat'
-- Open 'projectAuto.bat' to execute it
+- Open 'projectAuto.bat'
 
 
 
