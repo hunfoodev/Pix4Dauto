@@ -1,6 +1,6 @@
 import os
 
-def pix4dBat_byTemplate(baseDir, template):
+def write_pix4dBat_thermal(baseDir, template):
     """
 
     :param baseDir: base directory where a raw folder containing images is located
@@ -16,17 +16,30 @@ def pix4dBat_byTemplate(baseDir, template):
     # write to .bat file commands to run projects successively one after the other
     for fol in raw:
         
+        # clean folder name for homogeneity
+        fol = fol.replace('_', '-').replace(' ', '-')
+        
+        # check if folder is not of thermal images
+        # if project is not thermal, execute all processing steps with TELUQgeneral template
+        # if project is thermal, execute only first processing step
         ty = fol.split('-')[-1]
-        file.write(
-            '''echo RUNNING PROJECT ''' + ty.upper() + '''\n"C:\\Program Files\\Pix4Dmapper\\pix4dmapper" -c -n --image-dir "''' + fol + '''" --template ''' + template + ''' "C:\\Users\\zdeziel\\Documents\\TELUQ\\missions\\thetford-20180713\\''' + fol + '''.p4d"\necho PROCESSING FINISHED\n\n'''
-        )
+        if ty != 'thermal' or ty != 'therm' or ty != 'th':
+            file.write(
+            '''echo RUNNING PROJECT ''' +ty.upper() + '''\n"C:\\Program Files\\Pix4Dmapper\\pix4dmapper" -c -n --image-dir "''' + fol + '''" --template ''' + template +''' "C:\\Users\\zdeziel\\Documents\\TELUQ\\missions\\thetford-20180713\\''' + fol +'''.p4d"\necho PROCESSING FINISHED\n\n'''
+            )
+
+        else:
+            file.write(
+            '''echo RUNNING INITIAL PROCESSING ''' + ty.upper() + '''\n"C:\\Program Files\\Pix4Dmapper\\pix4dmapper" -c --cam-param-project -i --image-dir "''' + fol + '''" --template ''' + template +''' "C:\\Users\\zdeziel\\Documents\\TELUQ\\missions\\thetford-20180713\\''' + fol + '''.p4d"\necho INITIAL PROCESSING FINISHED\n\n'''
+            )
 
     # close file to save changes
     file.close()
 
     return 'Your projectAuto.bat file has been written.'
 
-def pix4dBat_byTemplate_thermal(baseDir, template):
+
+def write_pix4dBat(baseDir, template):
     """
 
     :param baseDir: base directory where a raw folder containing images is located
@@ -41,19 +54,14 @@ def pix4dBat_byTemplate_thermal(baseDir, template):
 
     # write to .bat file commands to run projects successively one after the other
     for fol in raw:
-
-        # check if folder is not of thermal images
-        # if project is not thermal, run with TELUQgeneral template
+        
+        # clean folder name for homogeneity
+        fol = fol.replace('_', '-').replace(' ', '-')
+        
         ty = fol.split('-')[-1]
-        if ty != 'thermal':
-            file.write(
-            '''echo RUNNING PROJECT ''' +ty.upper() + '''\n"C:\\Program Files\\Pix4Dmapper\\pix4dmapper" -c -n --image-dir "''' + fol + '''" --template ''' + template +''' "C:\\Users\\zdeziel\\Documents\\TELUQ\\missions\\thetford-20180713\\''' + fol +'''.p4d"\necho PROCESSING FINISHED\n\n'''
-            )
-
-        else:
-            file.write(
-            '''echo RUNNING INITIAL PROCESSING ''' + ty.upper() + '''\n"C:\\Program Files\\Pix4Dmapper\\pix4dmapper" -c --cam-param-project -i --image-dir "''' + fol + '''" --template ''' + template +''' "C:\\Users\\zdeziel\\Documents\\TELUQ\\missions\\thetford-20180713\\''' + fol + '''.p4d"\necho INITIAL PROCESSING FINISHED\n\n'''
-            )
+        file.write(
+            '''echo RUNNING PROJECT ''' + ty.upper() + '''\n"C:\\Program Files\\Pix4Dmapper\\pix4dmapper" -c -n --image-dir "''' + fol + '''" --template ''' + template + ''' "C:\\Users\\zdeziel\\Documents\\TELUQ\\missions\\thetford-20180713\\''' + fol + '''.p4d"\necho PROCESSING FINISHED\n\n'''
+        )
 
     # close file to save changes
     file.close()
