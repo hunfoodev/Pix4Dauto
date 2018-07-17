@@ -5,9 +5,10 @@ Program to create Pix4D projects automatically using a predefined template. Afte
 
 ## Usage
 - Sign in to Pix4D Mapper with your license (must not be trial version to use command line)
-- Import folders of filtered images in 'raw' folder contained in base directory
+- Import folders of filtered images in 'raw' folder contained in base directory (see example folder)
 - Set base directory and template in settings.py
-- Run test.py
+- Run test.py to generate 'projectAuto.bat'
+- Open 'projectAuto.bat' to execute it
 
 
 
